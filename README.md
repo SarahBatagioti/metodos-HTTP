@@ -66,10 +66,10 @@ Use Insomnia ou Postman para testar as rotas:
 3. **PUT /tarefas/editar/:id**: Para atualizar uma tarefa. Exemplo de corpo:
 
    ```json
-{
-  "nome": "Tarefa Atualizada",
-  "status": true
-}
+   {
+     "nome": "Tarefa Atualizada",
+     "status": true
+   }
 
 4. **DELETE /tarefas/delete/:id**: Para deletar uma tarefa.
 
