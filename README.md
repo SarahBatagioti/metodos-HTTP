@@ -13,7 +13,7 @@ Este projeto é uma API simples para gerenciar tarefas, usando **Express.js** no
 
    ```bash
    git clone https://github.com/SarahBatagioti/metodos-HTTP
-   cd gerenciamento-de-tarefas
+   cd metodos-HTTP
    ```
 
 2. Instale as dependências:
@@ -46,8 +46,8 @@ Este projeto é uma API simples para gerenciar tarefas, usando **Express.js** no
 
 - **GET /tarefas**: Retorna todas as tarefas.
 - **POST /tarefas**: Adiciona uma nova tarefa.
-- **PUT /tarefas/:id**: Atualiza uma tarefa pelo ID.
-- **DELETE /tarefas/:id**: Remove uma tarefa pelo ID.
+- **PUT /tarefas/editar/:id**: Atualiza uma tarefa pelo ID.
+- **DELETE /tarefas/delete/:id**: Remove uma tarefa pelo ID.
 - **GET /tarefas?status=true/false**: Filtra tarefas por status.
 
 ## Teste das Rotas
@@ -55,24 +55,27 @@ Este projeto é uma API simples para gerenciar tarefas, usando **Express.js** no
 Use Insomnia ou Postman para testar as rotas:
 
 1. **GET /tarefas**: Para listar todas as tarefas.
+
 2. **POST /tarefas**: Para adicionar uma tarefa. Exemplo de corpo:
 
    ```json
    {
      "nome": "Nova Tarefa"
    }
-   ```
 
-3. **PUT /tarefas/:id**: Para atualizar uma tarefa. Exemplo de corpo:
+3. **PUT /tarefas/editar/:id**: Para atualizar uma tarefa. Exemplo de corpo:
 
    ```json
-   {
-     "nome": "Tarefa Atualizada",
-     "status": true
-   }
-   ```
+{
+  "nome": "Tarefa Atualizada",
+  "status": true
+}
 
-4. **DELETE /tarefas/:id**: Para deletar uma tarefa.
+4. **DELETE /tarefas/delete/:id**: Para deletar uma tarefa.
+
+5. **GET /tarefas?status=true**: Para listar apenas as tarefas concluídas.
+
+6. **GET /tarefas?status=false**: Para listar apenas as tarefas não concluídas.
 
 ## Validações
 
