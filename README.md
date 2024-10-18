@@ -13,7 +13,7 @@ Este projeto é uma API simples para gerenciar tarefas, usando **Express.js** no
 
    ```bash
    git clone https://github.com/SarahBatagioti/metodos-HTTP
-   cd gerenciamento-de-tarefas
+   cd metodos-HTTP
    ```
 
 2. Instale as dependências:
