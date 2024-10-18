@@ -1,64 +1,83 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 
 // Configuração do Express
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(methodOverride('_method')); // Middleware para suportar PUT e DELETE
 
-// Simulando dados de clientes
-let clientes = [
-  { id: 1, nome: 'João', email: 'joao@gmail.com', status: false },
-  { id: 2, nome: 'Maria', email: 'maria@gmail.com', status: true }
+// Simulando dados de tarefas
+let tarefas = [
+  { id: 1, nome: 'Comprar pão', status: false },
+  { id: 2, nome: 'Estudar Express.js', status: true }
 ];
 
 let nextId = 3;
 
-// Rota para exibir a lista de clientes
+// Rota para exibir a lista de tarefas, com filtragem por status
 app.get('/', (req, res) => {
-  res.render('index', { clientes });
+  const { status } = req.query;
+  
+  let tarefasFiltradas = tarefas;
+  
+  if (status !== undefined) {
+    const filtroStatus = status === 'true';
+    tarefasFiltradas = tarefas.filter(t => t.status === filtroStatus);
+  }
+
+  res.render('index', { tarefas: tarefasFiltradas });
 });
 
 // Rota para exibir o formulário de criação
-app.get('/clientes/novo', (req, res) => {
-  res.render('form');
+app.get('/tarefas/nova', (req, res) => {
+  res.render('form', { error: null }); // Passar erro como null inicialmente
 });
 
-// Rota para adicionar um novo cliente
-app.post('/clientes', (req, res) => {
-  const { nome, email } = req.body;
-  const novoCliente = { id: nextId++, nome, email, status: false };
-  clientes.push(novoCliente);
+// Rota para adicionar uma nova tarefa
+app.post('/tarefas', (req, res) => {
+  const { nome } = req.body;
+
+  // Verificar se a tarefa já existe
+  const tarefaExistente = tarefas.find(t => t.nome.toLowerCase() === nome.toLowerCase());
+
+  if (tarefaExistente) {
+    // Redirecionar para o formulário com um erro
+    return res.render('form', { error: 'Tarefa já existe! Escolha um nome diferente.' });
+  }
+
+  const novaTarefa = { id: nextId++, nome, status: false };
+  tarefas.push(novaTarefa);
   res.redirect('/');
 });
 
-// Rota para exibir o formulário de edição de um cliente
-app.get('/clientes/editar/:id', (req, res) => {
-  const clienteId = parseInt(req.params.id);
-  const cliente = clientes.find(c => c.id === clienteId);
-  res.render('edit', { cliente });
+// Rota para exibir o formulário de edição de uma tarefa
+app.get('/tarefas/editar/:id', (req, res) => {
+  const tarefaId = parseInt(req.params.id);
+  const tarefa = tarefas.find(t => t.id === tarefaId);
+  res.render('edit', { tarefa });
 });
 
-// Rota para atualizar um cliente
-app.post('/clientes/editar/:id', (req, res) => {
-  const clienteId = parseInt(req.params.id);
-  const { nome, email, status } = req.body;
-  const cliente = clientes.find(c => c.id === clienteId);
+// Rota para atualizar uma tarefa (PUT)
+app.put('/tarefas/:id', (req, res) => {
+  const tarefaId = parseInt(req.params.id);
+  const { nome, status } = req.body;
+  const tarefa = tarefas.find(t => t.id === tarefaId);
 
-  if (cliente) {
-    cliente.nome = nome;
-    cliente.email = email;
-    cliente.status = status === 'on';
+  if (tarefa) {
+    tarefa.nome = nome;
+    tarefa.status = status === 'on';
   }
 
   res.redirect('/');
 });
 
-// Rota para excluir um cliente
-app.post('/clientes/deletar/:id', (req, res) => {
-  const clienteId = parseInt(req.params.id);
-  clientes = clientes.filter(c => c.id !== clienteId);
+// Rota para excluir uma tarefa (DELETE)
+app.delete('/tarefas/:id', (req, res) => {
+  const tarefaId = parseInt(req.params.id);
+  tarefas = tarefas.filter(t => t.id !== tarefaId);
   res.redirect('/');
 });
 

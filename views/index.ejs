@@ -3,30 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Clientes</title>
+  <title>Lista de Tarefas</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <h1>Lista de Clientes</h1>
-  <a href="/clientes/novo">Adicionar Novo Cliente</a>
+  <h1>Lista de Tarefas</h1>
+  <a href="/tarefas/nova">Adicionar Nova Tarefa</a>
   <table>
     <thead>
       <tr>
         <th>Nome</th>
-        <th>Email</th>
         <th>Status</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
-      <% clientes.forEach(cliente => { %>
+      <% tarefas.forEach(tarefa => { %>
         <tr>
-          <td><%= cliente.nome %></td>
-          <td><%= cliente.email %></td>
-          <td><%= cliente.status ? 'Ativo' : 'Inativo' %></td>
+          <td><%= tarefa.nome %></td>
+          <td><%= tarefa.status ? 'Concluída' : 'Pendente' %></td>
           <td>
-            <a href="/clientes/editar/<%= cliente.id %>">Editar</a>
-            <form action="/clientes/deletar/<%= cliente.id %>" method="POST" style="display:inline;">
+            <a href="/tarefas/editar/<%= tarefa.id %>">Editar</a>
+            <form action="/tarefas/deletar/<%= tarefa.id %>" method="POST" style="display:inline;">
               <button type="submit">Deletar</button>
             </form>
           </td>

@@ -3,22 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Editar Cliente</title>
+  <title>Editar Tarefa</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <h1>Editar Cliente</h1>
-  <form action="/clientes/editar/<%= cliente.id %>" method="POST">
+  <h1>Editar Tarefa</h1>
+  <form action="/tarefas/editar/<%= tarefa.id %>" method="POST">
     <label for="nome">Nome:</label>
-    <input type="text" name="nome" value="<%= cliente.nome %>" required><br><br>
+    <input type="text" name="nome" value="<%= tarefa.nome %>" required><br><br>
     
-    <label for="email">Email:</label>
-    <input type="email" name="email" value="<%= cliente.email %>" required><br><br>
+    <label for="status">Concluída:</label>
+    <input type="checkbox" name="status" <%= tarefa.status ? 'checked' : '' %>><br><br>
     
-    <label for="status">Ativo:</label>
-    <input type="checkbox" name="status" <%= cliente.status ? 'checked' : '' %>><br><br>
-    
-    <button type="submit">Atualizar Cliente</button>
+    <button type="submit">Atualizar Tarefa</button>
   </form>
   <a href="/">Voltar para a lista</a>
 </body>
