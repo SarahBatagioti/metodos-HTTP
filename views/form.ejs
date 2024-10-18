@@ -3,19 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nova Tarefa</title>
+  <title>Novo Tarefa</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <h1>Nova Tarefa</h1>
+  <h1>Novo Tarefa</h1>
+
+  <% if (erro) { %>
+    <div style="color: red;"><%= erro %></div>
+  <% } %>
+
   <form action="/tarefas" method="POST">
-    <input type="text" name="nome" required>
+    <label for="nome">Nome:</label>
+    <input type="text" name="nome" required><br><br>
+    
     <button type="submit">Adicionar Tarefa</button>
   </form>
-  
-  <% if (error) { %>
-    <p style="color: red;"><%= error %></p>
-  <% } %>
   
   <a href="/">Voltar para a lista</a>
 </body>

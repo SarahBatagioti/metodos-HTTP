@@ -8,11 +8,16 @@
 </head>
 <body>
   <h1>Editar Tarefa</h1>
+
+  <% if (erro) { %>
+    <div style="color: red;"><%= erro %></div>
+  <% } %>
+  
   <form action="/tarefas/editar/<%= tarefa.id %>" method="POST">
     <label for="nome">Nome:</label>
     <input type="text" name="nome" value="<%= tarefa.nome %>" required><br><br>
     
-    <label for="status">Concluída:</label>
+    <label for="status">Ativo:</label>
     <input type="checkbox" name="status" <%= tarefa.status ? 'checked' : '' %>><br><br>
     
     <button type="submit">Atualizar Tarefa</button>

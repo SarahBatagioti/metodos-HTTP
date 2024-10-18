@@ -8,20 +8,18 @@
 </head>
 <body>
   <h1>Lista de Tarefas</h1>
-  <a href="/tarefas/nova">Adicionar Nova Tarefa</a>
+  <a href="/tarefas/novo">Adicionar Nova Tarefa</a>
   <table>
     <thead>
       <tr>
         <th>Nome</th>
-        <th>Status</th>
-        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       <% tarefas.forEach(tarefa => { %>
         <tr>
           <td><%= tarefa.nome %></td>
-          <td><%= tarefa.status ? 'Concluída' : 'Pendente' %></td>
+          <td><%= tarefa.status ? 'Ativo' : 'Inativo' %></td>
           <td>
             <a href="/tarefas/editar/<%= tarefa.id %>">Editar</a>
             <form action="/tarefas/deletar/<%= tarefa.id %>" method="POST" style="display:inline;">
